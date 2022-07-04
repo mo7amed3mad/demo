@@ -10,6 +10,12 @@ pipeline {
             }
             steps {
                echo "Building release ${RELEASE} with log level ${LOG_LEVEL}..."
+               sh 'chmod +x build.sh'
+               withCredentials([string(credentialsId: '	slack', variable: 'API_KEY')]) {
+                  sh '''
+                     ./build.sh
+                  '''
+               }
             }
         }
         stage('Test') {
@@ -22,6 +28,8 @@ pipeline {
    post {
       success {
          archiveArtifacts 'test-results.txt'
+         slackSend channel: '#test',
+                   message: "Release ${env.RELEASE}, success: ${currentBuild.fullDisplayName}."
       }
    }
 }
