@@ -36,7 +36,6 @@ pipeline {
                    color: "good"
       }
       failure {
-         archiveArtifacts 'test-results.txt'
          slackSend message: "Release ${env.RELEASE}, FAILED: ${currentBuild.fullDisplayName}.",
                    color: "danger"
       }
