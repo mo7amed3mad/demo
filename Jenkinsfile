@@ -22,7 +22,7 @@ pipeline {
             steps {
                echo "Testing release ${RELEASE}"
                script {
-                  if (Math.random() > 0.5) {
+                  if (Math.random() > 1) {
                      throw new Exception()
                   }}
                writeFile file: 'test-results.txt', text: 'passed'               
