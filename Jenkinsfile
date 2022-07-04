@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('stage1') {
       steps {
-        echo 'this is $BUILD_NUMBER from $demo'
+        echo '"this is $BUILD_NUMBER from $demo"'
       }
     }
 
