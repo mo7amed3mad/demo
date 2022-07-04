@@ -21,6 +21,10 @@ pipeline {
         stage('Test') {
             steps {
                echo "Testing release ${RELEASE}"
+               script {
+                  if (Math.random() > 0.5) {
+                     throw new Exception()
+                  }
                writeFile file: 'test-results.txt', text: 'passed'               
             }
         }
@@ -30,6 +34,11 @@ pipeline {
          archiveArtifacts 'test-results.txt'
          slackSend message: "Release ${env.RELEASE}, success: ${currentBuild.fullDisplayName}.",
                    color: "good"
+      }
+      failure {
+         archiveArtifacts 'test-results.txt'
+         slackSend message: "Release ${env.RELEASE}, FAILED: ${currentBuild.fullDisplayName}.",
+                   color: "danger"
       }
    }
 }
