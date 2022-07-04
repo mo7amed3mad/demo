@@ -28,8 +28,7 @@ pipeline {
    post {
       success {
          archiveArtifacts 'test-results.txt'
-         slackSend channel: '#tset',
-                   message: "Release ${env.RELEASE}, success: ${currentBuild.fullDisplayName}.",
+         slackSend message: "Release ${env.RELEASE}, success: ${currentBuild.fullDisplayName}.",
                    color: "good"
       }
    }
