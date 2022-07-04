@@ -24,7 +24,8 @@ pipeline {
                script {
                   if (Math.random() = 1 ) {
                      throw new Exception()
-                  }}
+                  }
+               }
                writeFile file: 'test-results.txt', text: 'passed'               
             }
         }
@@ -37,7 +38,8 @@ pipeline {
       }
       failure {
          slackSend message: "Release ${env.RELEASE}, FAILED: ${currentBuild.fullDisplayName}.",
-                   color: "danger"
+                   color: "danger",
+                   channel: '#tset'
       }
    }
 }
